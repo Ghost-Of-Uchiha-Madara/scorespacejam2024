@@ -46,6 +46,20 @@ public class CharacterController2D : MonoBehaviour
             dashTimer = dashTime;
         }
 
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            characterAnimator.SetBool("IsAttackingL", true);
+            float attackDelay = characterAnimator.GetCurrentAnimatorStateInfo(0).length;
+            Invoke("AttackComplete", attackDelay);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            characterAnimator.SetBool("IsAttackingH", true);
+            float attackDelay = characterAnimator.GetCurrentAnimatorStateInfo(0).length;
+            Invoke("AttackComplete", attackDelay);
+        }
+
         dashCoolDownTimer += Time.deltaTime;
         if (dashCoolDownTimer >= coolDownTime)
         {
@@ -53,8 +67,23 @@ public class CharacterController2D : MonoBehaviour
             dashCoolDownTimer = 0f;
         }
 
+        if(horizontalMove != 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
         characterAnimator.SetFloat("Speed", Mathf.Abs(horizontalMove));
         characterAnimator.SetFloat("YVelocity", rb.velocity.y);
+    }
+
+    void AttackComplete()
+    {
+        characterAnimator.SetBool("IsAttackingL", false);
+        characterAnimator.SetBool("IsAttackingH", false);
     }
 
     private void FixedUpdate()
