@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterController2D : MonoBehaviour
@@ -15,6 +17,7 @@ public class CharacterController2D : MonoBehaviour
     private float dashCoolDownTimer;
     private float horizontalMove;
     private Animator characterAnimator;
+    public bool IsAttacking;
 
     private void Start()
     {
@@ -25,6 +28,7 @@ public class CharacterController2D : MonoBehaviour
 
     private void Update()
     {
+
 
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.5f, groundLayer);
 
@@ -46,19 +50,35 @@ public class CharacterController2D : MonoBehaviour
             dashTimer = dashTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            characterAnimator.SetBool("IsAttackingL", true);
-            float attackDelay = characterAnimator.GetCurrentAnimatorStateInfo(0).length;
-            Invoke("AttackComplete", attackDelay);
-        }
-
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            characterAnimator.SetBool("IsAttackingH", true);
-            float attackDelay = characterAnimator.GetCurrentAnimatorStateInfo(0).length;
-            Invoke("AttackComplete", attackDelay);
+            if (horizontalMove == 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            }
+            IsAttacking = true;
+            characterAnimator.SetBool("IsAttackingL", true);
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            float attackDelay = 1.02f;
+            //Invoke("AttackComplete", attackDelay);
+            StartCoroutine(AttackComplete());
         }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            if(horizontalMove == 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            }
+            IsAttacking = true;
+            characterAnimator.SetBool("IsAttackingH", true);
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            float attackDelay = 1.02f;
+            //Invoke("AttackComplete", attackDelay);
+            StartCoroutine(AttackComplete());
+
+        }
+
 
         dashCoolDownTimer += Time.deltaTime;
         if (dashCoolDownTimer >= coolDownTime)
@@ -67,7 +87,7 @@ public class CharacterController2D : MonoBehaviour
             dashCoolDownTimer = 0f;
         }
 
-        if(horizontalMove != 0)
+        if (horizontalMove != 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
@@ -80,29 +100,40 @@ public class CharacterController2D : MonoBehaviour
         characterAnimator.SetFloat("YVelocity", rb.velocity.y);
     }
 
-    void AttackComplete()
+    IEnumerator AttackComplete()
     {
+        yield return new WaitForSeconds(1.02f);
+        Debug.Log("Hit");
+        gameObject.GetComponent<SpriteRenderer>().flipX = true;
         characterAnimator.SetBool("IsAttackingL", false);
         characterAnimator.SetBool("IsAttackingH", false);
+        yield return new WaitForSeconds(0.2f);
+        IsAttacking = false;
+        
     }
+
 
     private void FixedUpdate()
     {
-         horizontalMove = Input.GetAxis("Horizontal");
+        if (!IsAttacking)
+        {
+            horizontalMove = Input.GetAxis("Horizontal");
 
-        if (dashTimer > 0f)
-        {
-            rb.velocity = new Vector2(horizontalMove * dashForce, rb.velocity.y);
-            dashTimer -= Time.deltaTime;
-        }
-        else
-        {
-            rb.velocity = new Vector2(horizontalMove * speed, rb.velocity.y);
-        }
 
-        if (horizontalMove > 0f && transform.localScale.x < 0f || horizontalMove < 0f && transform.localScale.x > 0f)
-        {
-            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            if (dashTimer > 0f)
+            {
+                rb.velocity = new Vector2(horizontalMove * dashForce, rb.velocity.y);
+                dashTimer -= Time.deltaTime;
+            }
+            else
+            {
+                rb.velocity = new Vector2(horizontalMove * speed, rb.velocity.y);
+            }
+
+            if (horizontalMove > 0f && transform.localScale.x < 0f || horizontalMove < 0f && transform.localScale.x > 0f)
+            {
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            }
         }
 
         
