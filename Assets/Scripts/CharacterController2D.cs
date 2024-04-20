@@ -13,15 +13,19 @@ public class CharacterController2D : MonoBehaviour
     private bool canDash = true;
     private float dashTimer;
     private float dashCoolDownTimer;
+    private float horizontalMove;
+    private Animator characterAnimator;
 
     private void Start()
     {
+        characterAnimator = GetComponent<Animator>();
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
+
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.5f, groundLayer);
 
         Debug.DrawRay(transform.position, Vector3.down *0.5f, Color.red );
@@ -29,6 +33,11 @@ public class CharacterController2D : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            characterAnimator.SetBool("IsJumping", true);
+        }
+        else
+        {
+            characterAnimator.SetBool("IsJumping", false);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && isGrounded)
@@ -43,11 +52,14 @@ public class CharacterController2D : MonoBehaviour
             canDash = true;
             dashCoolDownTimer = 0f;
         }
+
+        characterAnimator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+        characterAnimator.SetFloat("YVelocity", rb.velocity.y);
     }
 
     private void FixedUpdate()
     {
-        float horizontalMove = Input.GetAxis("Horizontal");
+         horizontalMove = Input.GetAxis("Horizontal");
 
         if (dashTimer > 0f)
         {
@@ -63,6 +75,8 @@ public class CharacterController2D : MonoBehaviour
         {
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
+
+        
     }
 }
 
