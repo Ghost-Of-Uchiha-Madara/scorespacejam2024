@@ -137,9 +137,9 @@ GameObject:
   - component: {fileID: 418149199}
   - component: {fileID: 418149202}
   - component: {fileID: 418149204}
-  m_Layer: 3
-  m_Name: Hexagon Flat-Top
-  m_TagString: Player
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,6 +207,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 16
+  IsAttacking: 0
 --- !u!61 &418149202
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -243,7 +244,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.96875}
+    oldSize: {x: 1.28125, y: 0.96875}
     newSize: {x: 0.5, y: 0.96875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -295,7 +296,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 757462195, guid: 65659acf3dad8a14c81677d38faa18d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.5, y: 0.96875}
