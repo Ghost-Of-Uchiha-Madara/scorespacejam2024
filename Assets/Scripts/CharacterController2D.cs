@@ -18,6 +18,8 @@ public class CharacterController2D : MonoBehaviour
     private float horizontalMove;
     private Animator characterAnimator;
     public bool IsAttacking;
+    public GameObject heavyAttack;
+    public GameObject lightAttack;
 
     private void Start()
     {
@@ -116,6 +118,27 @@ public class CharacterController2D : MonoBehaviour
         }
 
         
+    }
+
+    public void EnableHeavyAttackCollider()
+    {
+        print("Hit enable heavy");
+
+        heavyAttack.SetActive(true);
+    }
+    public void DisableHeavyAttackCollider()
+    {
+        print("Hit Disable heavy");
+        heavyAttack.SetActive(false);
+    }
+
+    public void EnableLightAttackCollider()
+    {
+        lightAttack.SetActive(true);
+    }
+    public void DisableLightAttackCollider()
+    {
+        lightAttack.SetActive(false);
     }
 }
 
