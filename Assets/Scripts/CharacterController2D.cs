@@ -85,7 +85,7 @@ public class CharacterController2D : MonoBehaviour
     IEnumerator AttackComplete()
     {
         yield return new WaitForSeconds(1.02f);
-        Debug.Log("Hit");
+        //Debug.Log("Hit");
         characterAnimator.SetBool("IsAttackingL", false);
         characterAnimator.SetBool("IsAttackingH", false);
         yield return new WaitForSeconds(0.3f);
