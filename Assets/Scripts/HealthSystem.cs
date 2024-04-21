@@ -7,11 +7,11 @@ public class HealthSystem : MonoBehaviour
 {
     public GameObject player;
     public Image playerHealthBar;
-    float playerHealth, playerMaxHealth = 100;
+    public float playerHealth, playerMaxHealth = 100;
     float lerpSpeed;
 
     public GameObject enemy;
-    float enemyHealth, enemyMaxHealth = 100;
+    public float enemyHealth, enemyMaxHealth = 100;
     private Animator playerAnimator;
     private Animator enemyAnimator;
     // Start is called before the first frame update
