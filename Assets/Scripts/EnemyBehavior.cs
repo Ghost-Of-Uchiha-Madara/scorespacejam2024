@@ -14,6 +14,8 @@ public class EnemyBehavior : MonoBehaviour
     float distance;
     bool hasFoundPlayer = false;
 
+    public Animator enemyAnimator;
+
     Transform playerTransform;
     private void Start()
     {
@@ -60,10 +62,29 @@ public class EnemyBehavior : MonoBehaviour
     {
         //taking only player's x because the enemy cant jump
         transform.position = Vector3.MoveTowards(transform.position, new Vector2(playerTransform.position.x, transform.position.y), speed * Time.deltaTime);
-
+        LookAtPlayer();
         if (Vector3.Distance(transform.position, playerTransform.position) < distanceBeforeAttackingPlayer)
         {
             print("CAN ATTACK");
+            enemyAnimator.SetBool("IsRange", true);
+        }
+        else
+        {
+            enemyAnimator.SetBool("IsRange", false);
+        }
+    }
+
+    void LookAtPlayer()
+    {
+        if (playerTransform.position.x > transform.position.x)
+        {
+            // Player is on the right, face right
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else
+        {
+            // Player is on the left, face left
+            transform.localScale = new Vector3(-1f, 1f, 1f);
         }
     }
 
@@ -71,6 +92,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
+            print("Check player");
             playerTransform = collision.transform;
             hasFoundPlayer= true;
         }

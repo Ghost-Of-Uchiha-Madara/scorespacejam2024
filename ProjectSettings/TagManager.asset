@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HeavyAttck
   - LightAttack
+  - Enemy
   layers:
   - Default
   - TransparentFX
