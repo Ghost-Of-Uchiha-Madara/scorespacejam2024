@@ -52,29 +52,17 @@ public class CharacterController2D : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (horizontalMove == 0)
-            {
-                gameObject.GetComponent<SpriteRenderer>().flipX = true;
-            }
             IsAttacking = true;
             characterAnimator.SetBool("IsAttackingL", true);
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
             float attackDelay = 1.02f;
-            //Invoke("AttackComplete", attackDelay);
             StartCoroutine(AttackComplete());
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            if(horizontalMove == 0)
-            {
-                gameObject.GetComponent<SpriteRenderer>().flipX = true;
-            }
             IsAttacking = true;
             characterAnimator.SetBool("IsAttackingH", true);
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
             float attackDelay = 1.02f;
-            //Invoke("AttackComplete", attackDelay);
             StartCoroutine(AttackComplete());
 
         }
@@ -87,14 +75,6 @@ public class CharacterController2D : MonoBehaviour
             dashCoolDownTimer = 0f;
         }
 
-        if (horizontalMove != 0)
-        {
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
-        }
-        else
-        {
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
-        }
 
         characterAnimator.SetFloat("Speed", Mathf.Abs(horizontalMove));
         characterAnimator.SetFloat("YVelocity", rb.velocity.y);
@@ -104,10 +84,9 @@ public class CharacterController2D : MonoBehaviour
     {
         yield return new WaitForSeconds(1.02f);
         Debug.Log("Hit");
-        gameObject.GetComponent<SpriteRenderer>().flipX = true;
         characterAnimator.SetBool("IsAttackingL", false);
         characterAnimator.SetBool("IsAttackingH", false);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         IsAttacking = false;
         
     }
