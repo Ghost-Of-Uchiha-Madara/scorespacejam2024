@@ -20,6 +20,10 @@ public class EnemyBehavior : MonoBehaviour
 
     public GameObject debugCircle;
 
+    public HealthSystem healthSystem;
+
+    public GameObject enemyCollider;
+
     float attackOffsetX;
     private void Start()
     {
@@ -108,7 +112,7 @@ public class EnemyBehavior : MonoBehaviour
         LookAtPlayer();
         if (Vector3.Distance(transform.position, playerTransform.position) < distanceBeforeAttackingPlayer)
         {
-            //print("CAN ATTACK");
+            print("CAN ATTACK");
             enemyAnimator.SetBool("IsRange", true);
         }
         else
@@ -116,6 +120,8 @@ public class EnemyBehavior : MonoBehaviour
             enemyAnimator.SetBool("IsRange", false);
         }
     }
+
+
 
     void LookAtPlayer()
     {
@@ -143,6 +149,16 @@ public class EnemyBehavior : MonoBehaviour
             playerTransform = collision.transform;
             hasFoundPlayer= true;
         }
+    }
+
+    public void EnableCollider()
+    {
+        enemyCollider.SetActive(true);
+    }
+
+    public void DisableCollider()
+    {
+        enemyCollider.SetActive(false);
     }
 
 }
