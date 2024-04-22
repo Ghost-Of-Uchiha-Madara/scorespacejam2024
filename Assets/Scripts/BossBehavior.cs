@@ -108,8 +108,8 @@ public class BossBehavior : MonoBehaviour
     IEnumerator TeleporteffectActive()
     {
         teleportEffect.SetActive(true);
-        teleportEffect.transform.position = new Vector2(teleportStartPos.x,0.7f);
-        yield return new WaitForSeconds(2f);
+        teleportEffect.transform.position = new Vector2(teleportStartPos.x,-0.41f);
+        yield return new WaitForSeconds(1.3f);
         teleportEffect.SetActive(false);
     }
 
