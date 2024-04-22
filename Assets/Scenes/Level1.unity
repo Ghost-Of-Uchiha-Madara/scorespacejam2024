@@ -163,6 +163,7 @@ MonoBehaviour:
   bossMaxHealth: 100
   bossAnimator: {fileID: 0}
   gameLoseCanvas: {fileID: 613106229}
+  gameWinCanvas: {fileID: 0}
 --- !u!4 &5272508
 Transform:
   m_ObjectHideFlags: 0
@@ -578,6 +579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalPoints: 0
   timeBasedScore: 0
+  hasUpdatedScore: 0
 --- !u!95 &346621571 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5869312057290005945, guid: 0c97292473cc1064ab1a2ac0b6ea502f, type: 3}
@@ -1465,8 +1467,12 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3391655905362806839, guid: 0c97292473cc1064ab1a2ac0b6ea502f, type: 3}
+      propertyPath: speed
+      value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3391655905362806839, guid: 0c97292473cc1064ab1a2ac0b6ea502f, type: 3}
       propertyPath: jumpForce
-      value: 9
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5387825350048903859, guid: 0c97292473cc1064ab1a2ac0b6ea502f, type: 3}
       propertyPath: m_Name
@@ -1479,6 +1485,18 @@ PrefabInstance:
     - target: {fileID: 7587737602138942404, guid: 0c97292473cc1064ab1a2ac0b6ea502f, type: 3}
       propertyPath: m_SortingLayerID
       value: -441723215
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130085919952606044, guid: 0c97292473cc1064ab1a2ac0b6ea502f, type: 3}
+      propertyPath: m_Mass
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130085919952606044, guid: 0c97292473cc1064ab1a2ac0b6ea502f, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130085919952606044, guid: 0c97292473cc1064ab1a2ac0b6ea502f, type: 3}
+      propertyPath: m_GravityScale
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

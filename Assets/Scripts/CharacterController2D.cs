@@ -32,9 +32,9 @@ public class CharacterController2D : MonoBehaviour
     {
 
 
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 2f, groundLayer);
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1f, groundLayer);
 
-        Debug.DrawRay(transform.position, Vector3.down *2f, Color.red );
+        Debug.DrawRay(transform.position, Vector3.down *1f, Color.red );
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
