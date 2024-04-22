@@ -187,6 +187,7 @@ public class HealthSystem : MonoBehaviour
             if(canUpdateScore)
             {
                 UpdateScore();
+                
             }
             boss.SetActive(false);
             player.GetComponent<CharacterController2D>().enabled = true;
@@ -207,7 +208,8 @@ public class HealthSystem : MonoBehaviour
 
     public void UpdateScore()
     {
-        GameManager.instance.AddPoints(1000);
+        //GameManager.instance.AddPoints(1000);
+        //GameManager.instance.EndGame();
         canUpdateScore = false;
         gameWinCanvas.SetActive(true);
     }

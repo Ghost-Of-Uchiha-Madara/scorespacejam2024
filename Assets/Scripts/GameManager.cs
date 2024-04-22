@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour
 
     public bool hasUpdatedScore;
 
+    float highScore;
+    
     private void Awake()
     {
         Time.timeScale = 1.0f;
@@ -95,6 +97,8 @@ public class GameManager : MonoBehaviour
     {
         
         startTime = Time.time;
+        //highScore = PlayerPrefs.GetInt("HighScore", 0);
+
     }
 
     public void AddPoints(int _points) // Function to add points
@@ -130,5 +134,14 @@ public class GameManager : MonoBehaviour
     {
         totalPoints += timeBasedScore; // Add the calculated time-based score
         
+    }
+
+    public void EndGame()
+    {
+        if (totalPoints > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", totalPoints);
+            //highScore.text = totalPoints.ToString();
+        }
     }
 }
