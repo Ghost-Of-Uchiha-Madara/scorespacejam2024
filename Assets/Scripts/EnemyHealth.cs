@@ -23,7 +23,7 @@ public class EnemyHealth : MonoBehaviour
              anim.Play("Enemy-Death");
              float deathAnimLenght = 0.3f;
              Invoke("DisableEnemy", deathAnimLenght);
-
+            GameManager.instance.AddPoints(20);
             
         }
     }

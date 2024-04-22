@@ -110,6 +110,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
@@ -197,7 +198,10 @@ public class HealthSystem : MonoBehaviour
     void HealthbarFiller()
     {
         playerHealthBar.fillAmount = Mathf.Lerp(playerHealthBar.fillAmount, playerHealth / playerMaxHealth, lerpSpeed);
-        bossHealthBar.fillAmount = Mathf.Lerp(bossHealthBar.fillAmount, bossHealth / bossMaxHealth, lerpSpeed);
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            bossHealthBar.fillAmount = Mathf.Lerp(bossHealthBar.fillAmount, bossHealth / bossMaxHealth, lerpSpeed);
+        }
     }
 
     /*void ColorChanger()

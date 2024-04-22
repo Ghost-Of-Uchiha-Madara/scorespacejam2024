@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class GroundCollider : MonoBehaviour
@@ -9,6 +10,7 @@ public class GroundCollider : MonoBehaviour
         if(collision.gameObject.CompareTag("Player"))
         {
             print("END GAME");
+            GameManager.instance.CalculateTimeBasedScore();
         }
 
         if (collision.gameObject.CompareTag("Enemy"))
