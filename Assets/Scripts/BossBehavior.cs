@@ -79,7 +79,7 @@ public class BossBehavior : MonoBehaviour
 
         Vector2 potentialTeleportPosition = new Vector2(targetXPosition, transform.position.y);
 
-        debugCircle.transform.position = potentialTeleportPosition;
+        //debugCircle.transform.position = potentialTeleportPosition;
 
         if (Time.time >= nextTeleportTime && Random.value <= teleportChance)
         {

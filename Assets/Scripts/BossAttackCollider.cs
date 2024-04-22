@@ -13,7 +13,7 @@ public class BossAttackCollider : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             healthSystem.PlayerDamage(hitPoints);
-            playerAnimator.SetBool("IsAttack", true);
+            playerAnimator.SetBool("isAttack", true);
         }
     }
 
@@ -21,7 +21,7 @@ public class BossAttackCollider : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerAnimator.SetBool("IsAttack", false);
+            playerAnimator.SetBool("isAttack", false);
         }
     }
 }
