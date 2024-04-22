@@ -12,15 +12,20 @@ public class PlayerAttackCollider : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            print("enemy hit " + this.gameObject.name);
-            enemyAnimatior.SetBool("IsAttackingRange", true);
+            print("enemy hit " + collision.gameObject.name);
+            //enemyAnimatior.SetBool("IsAttackingRange", true);
+            collision.gameObject.GetComponent<EnemyHealth>().EnemyDamage(damagePoints);
+            collision.transform.GetChild(0).GetComponent<Animator>().SetBool("IsAttackingRange", true);
+            //healthSystem.EnemyDamage(damagePoints);
 
-            healthSystem.EnemyDamage(damagePoints);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-            enemyAnimatior.SetBool("IsAttackingRange", false);
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.transform.GetChild(0).GetComponent<Animator>().SetBool("IsAttackingRange", false);
+        }
     }
 }
