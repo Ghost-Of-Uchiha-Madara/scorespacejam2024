@@ -17,7 +17,12 @@ public class PlayerAttackCollider : MonoBehaviour
             collision.gameObject.GetComponent<EnemyHealth>().EnemyDamage(damagePoints);
             collision.transform.GetChild(0).GetComponent<Animator>().SetBool("IsAttackingRange", true);
             //healthSystem.EnemyDamage(damagePoints);
+        }
 
+        if(collision.gameObject.CompareTag("Boss"))
+        {
+            healthSystem.BossDamage(damagePoints);
+            collision.gameObject.GetComponent<Animator>().SetBool("IsAttack", true);
         }
     }
 
@@ -26,6 +31,12 @@ public class PlayerAttackCollider : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             collision.transform.GetChild(0).GetComponent<Animator>().SetBool("IsAttackingRange", false);
+        }
+
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+            collision.gameObject.GetComponent<Animator>().SetBool("IsAttack", false);
+
         }
     }
 }

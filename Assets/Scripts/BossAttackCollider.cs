@@ -19,6 +19,9 @@ public class BossAttackCollider : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        playerAnimator.SetBool("IsAttack", false);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerAnimator.SetBool("IsAttack", false);
+        }
     }
 }
