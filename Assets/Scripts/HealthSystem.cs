@@ -5,22 +5,33 @@ using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
 {
+    //Player
     public GameObject player;
     public Image playerHealthBar;
-    float playerHealth, playerMaxHealth = 100;
+    public float playerHealth, playerMaxHealth = 100;
     float lerpSpeed;
-
-    public GameObject enemy;
-    float enemyHealth, enemyMaxHealth = 100;
     private Animator playerAnimator;
+
+    //Boss
+    public GameObject boss;
+    public Image bossHealthBar;
+    public float bossHealth, bossMaxHealth = 100;
+    public Animator bossAnimator;
+
+    //enemy
+    public GameObject enemy;
+    public float enemyHealth, enemyMaxHealth = 100;
     private Animator enemyAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
-         playerAnimator = player.GetComponent<Animator>();
+        playerAnimator = player.GetComponent<Animator>();
         enemyAnimator = enemy.GetComponent<Animator>();
+        bossAnimator = boss.GetComponent<Animator>();
         playerHealth = playerMaxHealth;
         enemyHealth = enemyMaxHealth;
+        bossHealth = bossMaxHealth;
     }
 
     // Update is called once per frame
@@ -28,11 +39,12 @@ public class HealthSystem : MonoBehaviour
     {
         if (playerHealth > playerMaxHealth) playerHealth = playerMaxHealth;
         if (enemyHealth > enemyMaxHealth) enemyHealth = enemyMaxHealth;
+        if(bossHealth > bossMaxHealth) bossHealth = bossMaxHealth;
         lerpSpeed = 6f * Time.deltaTime;
         HealthbarFiller();
         ColorChanger();
 
-        if (playerHealth == 0f)
+        if (playerHealth <= 0f)
         {
             Debug.Log("Your Already Dead!");
             playerAnimator.Play("Chatacter-Death");
@@ -40,15 +52,22 @@ public class HealthSystem : MonoBehaviour
             Invoke("DisablePlayer", deathAnimLenght);
         }
 
-        if (enemyHealth == 0f)
+        if (enemyHealth <= 0f)
         {
             Debug.Log("Enemy Died");
             enemyAnimator.Play("Enemy-Death");
             float deathAnimLenght = 0.3f;
             Invoke("DisableEnemy", deathAnimLenght);
-
         }
 
+        if(bossHealth <= 0f)
+        {
+            Debug.Log("Boss Defeated");
+            bossAnimator.Play("Boss-Death");
+            float deathAnimLenght = 0.6f;
+            Invoke("DisableBoss", deathAnimLenght);
+
+        }
     }
 
     public void DisablePlayer()
@@ -61,9 +80,15 @@ public class HealthSystem : MonoBehaviour
         enemy.SetActive(false);
     }
 
+    public void DisableBoss()
+    {
+        boss.SetActive(false);
+    }
+
     void HealthbarFiller()
     {
         playerHealthBar.fillAmount = Mathf.Lerp(playerHealthBar.fillAmount, playerHealth / playerMaxHealth, lerpSpeed);
+        bossHealthBar.fillAmount = Mathf.Lerp(bossHealthBar.fillAmount,bossHealth / bossMaxHealth, lerpSpeed);
     }
 
     void ColorChanger()
@@ -92,9 +117,17 @@ public class HealthSystem : MonoBehaviour
 
     public void EnemyDamage(float damagePoints)
     {
-        if(enemyHealth > 0)
+        if (enemyHealth > 0)
         {
             enemyHealth -= damagePoints;
+        }
+    }
+
+    public void BossDamage(float damagePoints)
+    {
+        if(bossHealth > 0)
+        {
+            bossHealth -= damagePoints;
         }
     }
 

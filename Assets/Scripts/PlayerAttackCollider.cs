@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerAttackCollider : MonoBehaviour
 {
-    public Animator enemyAnimatior;
+    public Animator enemyAnimator;
+    public Animator bossAnimator;
     public float damagePoints;
     public HealthSystem healthSystem;
 
@@ -13,14 +14,18 @@ public class PlayerAttackCollider : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             print("enemy hit " + this.gameObject.name);
-            enemyAnimatior.SetBool("IsAttackingRange", true);
+            enemyAnimator.SetBool("IsAttackingRange", true);
+            bossAnimator.SetBool("IsAttack", true);
+
 
             healthSystem.EnemyDamage(damagePoints);
+            healthSystem.BossDamage(damagePoints);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-            enemyAnimatior.SetBool("IsAttackingRange", false);
+            enemyAnimator.SetBool("IsAttackingRange", false);
+            bossAnimator.SetBool("IsAttack", false);
     }
 }
