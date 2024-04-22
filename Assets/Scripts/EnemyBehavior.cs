@@ -16,11 +16,11 @@ public class EnemyBehavior : MonoBehaviour
 
     public Animator enemyAnimator;
 
-    Transform playerTransform;
+    public Transform playerTransform;
 
     public GameObject debugCircle;
 
-    public HealthSystem healthSystem;
+    //public HealthSystem healthSystem;
 
     public GameObject enemyCollider;
 
@@ -34,7 +34,10 @@ public class EnemyBehavior : MonoBehaviour
     private void Update()
     {
         
-
+        if(Vector2.Distance(transform.position, playerTransform.position)<3f)
+        {
+            hasFoundPlayer = true;
+        }
         // Move towards target
         if (!hasFoundPlayer)
         {
@@ -108,8 +111,9 @@ public class EnemyBehavior : MonoBehaviour
         Vector2 updatedTargetPosition = new Vector2(playerTransform.position.x + attackOffset.x, transform.position.y);
         
         transform.position = Vector3.MoveTowards(transform.position, updatedTargetPosition, speed * Time.deltaTime);
-        debugCircle.transform.position = updatedTargetPosition;
+        //debugCircle.transform.position = updatedTargetPosition;
         LookAtPlayer();
+
         if (Vector3.Distance(transform.position, playerTransform.position) < distanceBeforeAttackingPlayer)
         {
             print("CAN ATTACK");
@@ -118,6 +122,7 @@ public class EnemyBehavior : MonoBehaviour
         else
         {
             enemyAnimator.SetBool("IsRange", false);
+            transform.position = Vector3.MoveTowards(transform.position, updatedTargetPosition, speed * Time.deltaTime);
         }
     }
 
@@ -141,15 +146,15 @@ public class EnemyBehavior : MonoBehaviour
 
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            //print("Check player");
-            playerTransform = collision.transform;
-            hasFoundPlayer= true;
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(collision.gameObject.CompareTag("Player"))
+    //    {
+    //        //print("Check player");
+    //        playerTransform = collision.transform;
+    //        hasFoundPlayer= true;
+    //    }
+    //}
 
     public void EnableCollider()
     {

@@ -119,7 +119,7 @@ public class HealthSystem : MonoBehaviour
     public Image playerHealthBar;
     public float playerHealth, playerMaxHealth = 100;
     float lerpSpeed;
-    private Animator playerAnimator;
+    public Animator playerAnimator;
 
     //Boss
     public GameObject boss;
@@ -135,9 +135,9 @@ public class HealthSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerAnimator = player.GetComponent<Animator>();
+        //playerAnimator = player.GetComponent<Animator>();
         //enemyAnimator = enemy.GetComponent<Animator>();
-        bossAnimator = boss.transform.GetChild(0).GetComponent<Animator>();
+        //bossAnimator = boss.transform.GetChild(0).GetComponent<Animator>();
         playerHealth = playerMaxHealth;
         //enemyHealth = enemyMaxHealth;
         bossHealth = bossMaxHealth;
@@ -150,8 +150,8 @@ public class HealthSystem : MonoBehaviour
         //if (enemyHealth > enemyMaxHealth) enemyHealth = enemyMaxHealth;
         //if (bossHealth > bossMaxHealth) bossHealth = bossMaxHealth;
         lerpSpeed = 6f * Time.deltaTime;
-        //HealthbarFiller();
-        ColorChanger();
+        HealthbarFiller();
+        //ColorChanger();
 
         if (playerHealth <= 0f)
         {
@@ -194,18 +194,18 @@ public class HealthSystem : MonoBehaviour
         boss.SetActive(false);
     }
 
-    //void HealthbarFiller()
-    //{
-    //    playerHealthBar.fillAmount = Mathf.Lerp(playerHealthBar.fillAmount, playerHealth / playerMaxHealth, lerpSpeed);
-    //    bossHealthBar.fillAmount = Mathf.Lerp(bossHealthBar.fillAmount, bossHealth / bossMaxHealth, lerpSpeed);
-    //}
-
-    void ColorChanger()
+    void HealthbarFiller()
     {
-        Color healthColor = Color.Lerp(Color.red, Color.green, (playerHealth / playerMaxHealth));
+        playerHealthBar.fillAmount = Mathf.Lerp(playerHealthBar.fillAmount, playerHealth / playerMaxHealth, lerpSpeed);
+        bossHealthBar.fillAmount = Mathf.Lerp(bossHealthBar.fillAmount, bossHealth / bossMaxHealth, lerpSpeed);
+    }
+
+    /*void ColorChanger()
+    {
+        Color healthColor = Color.Lerp(Color.red, Color.blue, (playerHealth / playerMaxHealth));
 
         playerHealthBar.color = healthColor;
-    }
+    }*/
 
     //Test Purpose
     public void PlayerDamage(float damagePoints)

@@ -13,7 +13,7 @@ public class EnemyHealth : MonoBehaviour
     private void Start()
     {
         enemyHealth = maxHealth;
-        anim = transform.GetChild(0).GetComponent<Animator>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()

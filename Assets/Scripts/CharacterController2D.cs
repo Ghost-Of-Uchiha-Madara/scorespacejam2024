@@ -32,9 +32,9 @@ public class CharacterController2D : MonoBehaviour
     {
 
 
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 1f, groundLayer);
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 2f, groundLayer);
 
-        Debug.DrawRay(transform.position, Vector3.down *0.5f, Color.red );
+        Debug.DrawRay(transform.position, Vector3.down *2f, Color.red );
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
@@ -52,7 +52,7 @@ public class CharacterController2D : MonoBehaviour
             dashTimer = dashTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0)&&isGrounded)
         {
             IsAttacking = true;
             characterAnimator.SetBool("IsAttackingL", true);
@@ -60,7 +60,7 @@ public class CharacterController2D : MonoBehaviour
             StartCoroutine(AttackComplete());
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1)&&isGrounded)
         {
             IsAttacking = true;
             characterAnimator.SetBool("IsAttackingH", true);
@@ -115,6 +115,10 @@ public class CharacterController2D : MonoBehaviour
             {
                 transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
         }
 
         
