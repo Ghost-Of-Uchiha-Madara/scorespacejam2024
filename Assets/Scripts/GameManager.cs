@@ -74,8 +74,11 @@ public class GameManager : MonoBehaviour
 
     private float startTime;
 
+    public bool hasUpdatedScore;
+
     private void Awake()
     {
+        Time.timeScale = 1.0f;
         if (instance == null)
         {
             instance = this; // Set Instance on Awake
@@ -90,6 +93,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        
         startTime = Time.time;
     }
 
@@ -125,5 +129,6 @@ public class GameManager : MonoBehaviour
     public void AddTimeBonus()
     {
         totalPoints += timeBasedScore; // Add the calculated time-based score
+        
     }
 }

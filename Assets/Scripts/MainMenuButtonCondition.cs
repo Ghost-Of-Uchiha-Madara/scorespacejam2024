@@ -9,7 +9,7 @@ public class MainMenuButtonCondition : MonoBehaviour
 
     public void ChangeScene()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Level1");
     }
 
     public void OptionPannelEnable()

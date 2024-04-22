@@ -121,6 +121,7 @@ public class HealthSystem : MonoBehaviour
     public float playerHealth, playerMaxHealth = 100;
     float lerpSpeed;
     public Animator playerAnimator;
+    
 
     //Boss
     public GameObject boss;
@@ -128,6 +129,10 @@ public class HealthSystem : MonoBehaviour
     public float bossHealth, bossMaxHealth = 100;
     public Animator bossAnimator;
 
+    public GameObject gameLoseCanvas;
+    public GameObject gameWinCanvas;
+
+    bool canUpdateScore;
     //enemy
     //public GameObject enemy;
     //public float enemyHealth, enemyMaxHealth = 100;
@@ -160,6 +165,8 @@ public class HealthSystem : MonoBehaviour
             playerAnimator.Play("Chatacter-Death");
             float deathAnimLenght = 0.3f;
             Invoke("DisablePlayer", deathAnimLenght);
+            gameLoseCanvas.SetActive(true);
+            Time.timeScale = 0f;
         }
 
         //if (enemyHealth <= 0f)
@@ -176,6 +183,14 @@ public class HealthSystem : MonoBehaviour
             bossAnimator.Play("Boss-Death");
             float deathAnimLenght = 0.6f;
             Invoke("DisableBoss", deathAnimLenght);
+            canUpdateScore = true;
+            if(canUpdateScore)
+            {
+                UpdateScore();
+            }
+            boss.SetActive(false);
+            player.GetComponent<CharacterController2D>().enabled = true;
+            
 
         }
     }
@@ -190,6 +205,13 @@ public class HealthSystem : MonoBehaviour
     //    enemy.SetActive(false);
     //}
 
+    public void UpdateScore()
+    {
+        GameManager.instance.AddPoints(1000);
+        canUpdateScore = false;
+        gameWinCanvas.SetActive(true);
+    }
+
     public void DisableBoss()
     {
         boss.SetActive(false);
@@ -198,7 +220,7 @@ public class HealthSystem : MonoBehaviour
     void HealthbarFiller()
     {
         playerHealthBar.fillAmount = Mathf.Lerp(playerHealthBar.fillAmount, playerHealth / playerMaxHealth, lerpSpeed);
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 2)
         {
             bossHealthBar.fillAmount = Mathf.Lerp(bossHealthBar.fillAmount, bossHealth / bossMaxHealth, lerpSpeed);
         }
